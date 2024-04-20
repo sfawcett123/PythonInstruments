@@ -1,23 +1,19 @@
 import pygame
 from altimeter import Altimeter
 
-altimeter = Altimeter()
-done = False
-
-h = 0000
+altimeter = Altimeter( height=0 , qnh=1020 , power=False)
 
 clock = pygame.time.Clock()
 
+done = False
 while not done:
    clock.tick(60)
    for event in pygame.event.get():
       if event.type == pygame.QUIT:
            done = True
-   h = h +1
-   altimeter.height( h )
-   altimeter.qnh( 2992 )
+   altimeter.height += 1
 
-   if h < 1000:
-      altimeter.flag( False )
+   if altimeter.height < 1000:
+      altimeter.power = False
    else:
-      altimeter.flag( True )
+      altimeter.power = True

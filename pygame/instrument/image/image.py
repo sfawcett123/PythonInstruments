@@ -21,7 +21,7 @@ class Image:
 
         self.name   = kwargs.get("name"  , image )
         print( f"Initialising {self.name}")
-        self.ratio  = kwargs.get("ratio" , 0.0 )
+        self.max    = kwargs.get("max" , 360 )
         self.layer  = kwargs.get("layer" , 0)
         self.scale  = kwargs.get("scale" , 0)
         self.center = kwargs.get("centre", False)
@@ -31,12 +31,12 @@ class Image:
 
         if img:
             if kwargs.get("size"):
-                self.img = pygame.transform.smoothscale(img, kwargs.get("size") )
+                self.img = pygame.transform.scale(img, kwargs.get("size") )
             elif self.scale > 0:
                 r = img.get_size()
                 x = r[0] * self.scale
                 y = r[1] * self.scale
-                self.img = pygame.transform.smoothscale(img, ( x, y ) )
+                self.img = pygame.transform.scale(img, ( int(x), int(y) ) )
             else:
                 self.img = img
 
@@ -60,7 +60,8 @@ class Image:
 
     def angle( self ):
         """adjust the angle to the ratio of the max value / 360"""
-        return -self.value * self.ratio
+        ratio = 360 / self.max
+        return -self.value * ratio
 
     def rotate_center(self , w=0, h=0 ):
         """rotate an image while keeping its center and size"""
