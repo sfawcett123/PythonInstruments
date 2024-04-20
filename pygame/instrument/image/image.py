@@ -15,6 +15,7 @@ class Image:
         self.screen = screen
         if image:
             img = pygame.image.load( image ).convert()
+            print( f"Setting Transparent to {Colours.TRANSPARANT}")
             img.set_colorkey( Colours.TRANSPARANT )
         else:
             img = None
